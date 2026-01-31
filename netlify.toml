@@ -1,0 +1,3 @@
+# Netlify: publicar la raíz del repo (index.html + thank-you.html)
+[build]
+  publish = "."
