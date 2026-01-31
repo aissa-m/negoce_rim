@@ -272,19 +272,23 @@
         </div>
 
         <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-6">
-          <div class="text-sm font-semibold" data-i18n="contact.formTitle">Quick request (no backend)</div>
+          <div class="text-sm font-semibold" data-i18n="contact.formTitle">Quick request</div>
           <p class="mt-2 text-sm text-slate-300" data-i18n="contact.formSubtitle">
-            This form opens your email client. No data is stored on the site.
+            We’ll get back to you with next steps.
           </p>
 
-          <form class="mt-5 space-y-3" onsubmit="return sendMail(event)">
-            <input id="fName" class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-white/25"
+          <form name="contact" method="POST" action="/thank-you.html" data-netlify="true" data-netlify-honeypot="bot-field" class="mt-5 space-y-3">
+            <input type="hidden" name="form-name" value="contact" />
+            <p class="hidden" aria-hidden="true">
+              <label>Don’t fill this out: <input name="bot-field" /></label>
+            </p>
+            <input id="fName" name="name" class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-white/25"
                    type="text" required data-i18n-placeholder="contact.pName" placeholder="Your name" />
-            <input id="fCompany" class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-white/25"
+            <input id="fCompany" name="company" class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-white/25"
                    type="text" data-i18n-placeholder="contact.pCompany" placeholder="Company (optional)" />
-            <input id="fNeed" class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-white/25"
+            <input id="fNeed" name="need" class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-white/25"
                    type="text" required data-i18n-placeholder="contact.pNeed" placeholder="What do you want to import?" />
-            <textarea id="fMsg" rows="4" class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-white/25"
+            <textarea id="fMsg" name="message" rows="4" class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-white/25"
                       data-i18n-placeholder="contact.pMsg" placeholder="Details (quantity, destination, timeline, specs...)"></textarea>
 
             <button class="w-full rounded-2xl bg-white text-slate-950 px-5 py-3 text-sm font-medium hover:bg-slate-200" type="submit">
@@ -368,8 +372,8 @@
           emailLabel: "Email:",
           phoneLabel: "Phone:",
           note: "Replace email/phone with your real details whenever you’re ready.",
-          formTitle: "Quick request (no backend)",
-          formSubtitle: "This form opens your email client. No data is stored on the site.",
+          formTitle: "Quick request",
+          formSubtitle: "We’ll get back to you with next steps.",
           pName: "Your name",
           pCompany: "Company (optional)",
           pNeed: "What do you want to import?",
@@ -438,8 +442,8 @@
           emailLabel: "Email :",
           phoneLabel: "Téléphone :",
           note: "Remplacez l’email/le téléphone par vos infos réelles quand vous voulez.",
-          formTitle: "Demande rapide (sans backend)",
-          formSubtitle: "Ce formulaire ouvre votre client email. Aucune donnée n’est stockée sur le site.",
+          formTitle: "Demande rapide",
+          formSubtitle: "Nous vous recontacterons avec les prochaines étapes.",
           pName: "Votre nom",
           pCompany: "Entreprise (optionnel)",
           pNeed: "Que souhaitez-vous importer ?",
@@ -484,25 +488,6 @@
     document.getElementById("btnFR").addEventListener("click", () => setActive("fr"));
 
     setActive(localStorage.getItem("lang") || "en");
-
-    function sendMail(e){
-      e.preventDefault();
-      const name = document.getElementById("fName").value.trim();
-      const company = document.getElementById("fCompany").value.trim();
-      const need = document.getElementById("fNeed").value.trim();
-      const msg = document.getElementById("fMsg").value.trim();
-
-      const subject = encodeURIComponent(`Import request — ${need}`);
-      const body = encodeURIComponent(
-        `Name: ${name}\n` +
-        `Company: ${company || "-"}\n` +
-        `Request: ${need}\n\n` +
-        `Details:\n${msg || "-"}\n`
-      );
-
-      window.location.href = `mailto:contact@negoce-rim.com?subject=${subject}&body=${body}`;
-      return false;
-    }
   </script>
 </body>
 </html>

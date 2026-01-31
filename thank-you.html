@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank you — NÉGOCE ET COMMERCE DE RIM</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .glass { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(10px); }
+    .grid-bg {
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(255,255,255,.08) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-slate-950 text-slate-100">
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur">
+    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-2xl bg-white/10 border border-white/10 grid place-items-center">
+          <span class="text-sm font-semibold">NCR</span>
+        </div>
+        <div class="leading-tight">
+          <div class="font-semibold tracking-wide">NÉGOCE ET COMMERCE DE RIM</div>
+          <div class="text-xs text-slate-300" data-i18n="tagline">General Trading • Import • Sourcing</div>
+        </div>
+      </a>
+      <div class="flex items-center gap-2">
+        <button id="btnEN" class="px-3 py-1.5 rounded-xl text-xs border border-white/15 hover:border-white/30 hover:bg-white/5">EN</button>
+        <button id="btnFR" class="px-3 py-1.5 rounded-xl text-xs border border-white/15 hover:border-white/30 hover:bg-white/5">FR</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="relative overflow-hidden grid-bg min-h-[80vh] flex items-center justify-center">
+    <div class="absolute inset-0 opacity-60">
+      <div class="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-indigo-500/20 blur-3xl"></div>
+      <div class="absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-cyan-500/20 blur-3xl"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-2xl px-4 py-16 text-center">
+      <div class="glass rounded-3xl p-8 md:p-12 shadow-2xl shadow-black/40">
+        <div class="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-emerald-500/20 border border-emerald-400/30 mb-6">
+          <svg class="h-7 w-7 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+        <h1 class="text-2xl md:text-3xl font-semibold text-slate-100" data-i18n="title">
+          Thank you. We received your request and will reply shortly.
+        </h1>
+        <p class="mt-4 text-slate-300" data-i18n="subtitle">
+          We’ll get back to you with next steps.
+        </p>
+        <a href="/" class="mt-8 inline-flex justify-center rounded-2xl bg-white text-slate-950 px-6 py-3 text-sm font-medium hover:bg-slate-200" data-i18n="backHome">
+          Back to Home
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-white/10">
+    <div class="mx-auto max-w-6xl px-4 py-6 text-center text-sm text-slate-400">
+      © <span id="year"></span> NÉGOCE ET COMMERCE DE RIM
+    </div>
+  </footer>
+
+  <script>
+    const dict = {
+      en: {
+        tagline: "General Trading • Import • Sourcing",
+        title: "Thank you. We received your request and will reply shortly.",
+        subtitle: "We'll get back to you with next steps.",
+        backHome: "Back to Home"
+      },
+      fr: {
+        tagline: "Négoce général • Import • Sourcing",
+        title: "Merci. Nous avons bien reçu votre demande et nous vous répondrons rapidement.",
+        subtitle: "Nous vous recontacterons avec les prochaines étapes.",
+        backHome: "Retour à l'accueil"
+      }
+    };
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function setActive(lang) {
+      localStorage.setItem("lang", lang);
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        const val = key.split(".").reduce((acc, k) => acc?.[k], dict[lang]);
+        if (typeof val === "string") el.textContent = val;
+      });
+      const btnEN = document.getElementById("btnEN");
+      const btnFR = document.getElementById("btnFR");
+      const on = "border-white/30 bg-white/10";
+      const off = "border-white/15 bg-transparent";
+      btnEN.className = btnEN.className.replace(on, "").replace(off, "") + " " + (lang === "en" ? on : off);
+      btnFR.className = btnFR.className.replace(on, "").replace(off, "") + " " + (lang === "fr" ? on : off);
+    }
+
+    document.getElementById("btnEN").addEventListener("click", () => setActive("en"));
+    document.getElementById("btnFR").addEventListener("click", () => setActive("fr"));
+
+    setActive(localStorage.getItem("lang") || "en");
+  </script>
+</body>
+</html>
