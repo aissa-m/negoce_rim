@@ -1,51 +1,113 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NÉGOCE ET COMMERCE DE RIM — Import & General Trading</title>
-  <meta name="description" content="NÉGOCE ET COMMERCE DE RIM — General Trading & Import. Food, consumer goods, automotive parts, tires, vehicles." />
+  <title>NÉGOCE ET COMMERCE DE RIM — Commerce • Fisheries • Mining</title>
+  <meta name="description"
+    content="NÉGOCE ET COMMERCE DE RIM — Commerce, fisheries and mining. General trading, import-export, fisheries commercialisation, mining and resource development." />
 
   <!-- Tailwind (CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     /* Pequeños detalles visuales sin complicarse */
-    .glass { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(10px); }
+    .glass {
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .12);
+      backdrop-filter: blur(10px);
+    }
+
     .grid-bg {
       background-image:
-        radial-gradient(circle at 1px 1px, rgba(255,255,255,.08) 1px, transparent 0);
+        radial-gradient(circle at 1px 1px, rgba(255, 255, 255, .08) 1px, transparent 0);
       background-size: 24px 24px;
+    }
+
+    @layer components {
+
+      /* Blob difuso que sigue al cursor */
+      .cursor-blob {
+        pointer-events: none;
+        position: fixed;
+        inset: 0;
+        width: 240px;
+        aspect-ratio: 1;
+        border-radius: 9999px;
+        background: radial-gradient(circle, rgba(30, 64, 175, 0.12) 0%, rgba(16, 185, 129, 0.10) 35%, transparent 60%);
+        filter: blur(48px);
+        opacity: 0.75;
+        transform: translate(-50%, -50%);
+        z-index: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      /* Glow sutil en tarjetas */
+      .glow-card {
+        position: relative;
+        isolation: isolate;
+      }
+
+      .glow-card::before,
+      .glow-card::after {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        pointer-events: none;
+        transition: opacity 0.35s ease;
+        opacity: 0;
+      }
+
+      .glow-card::before {
+        background: radial-gradient(circle at 30% 30%, rgba(56, 189, 248, 0.35), rgba(16, 185, 129, 0.25), transparent 60%);
+        filter: blur(14px);
+        z-index: -2;
+      }
+
+      .glow-card::after {
+        background: conic-gradient(from 180deg, rgba(56, 189, 248, 0.6), rgba(16, 185, 129, 0.6), rgba(56, 189, 248, 0.6));
+        mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        mask-composite: exclude;
+        padding: 1px;
+        z-index: -1;
+      }
+
+      .glow-card:hover::before,
+      .glow-card:hover::after {
+        opacity: 1;
+      }
     }
   </style>
 </head>
 
-<body class="min-h-screen bg-slate-950 text-slate-100">
+<body class="min-h-screen bg-slate-950 text-slate-100 relative">
+  <!-- Cursor ambient -->
+  <div class="cursor-blob" aria-hidden="true"></div>
+
   <!-- Top bar -->
   <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur">
     <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="h-10 w-10 rounded-2xl bg-white/10 border border-white/10 grid place-items-center">
-          <span class="text-sm font-semibold">NCR</span>
-        </div>
-        <div class="leading-tight">
-          <div class="font-semibold tracking-wide">NÉGOCE ET COMMERCE DE RIM</div>
-          <div class="text-xs text-slate-300" data-i18n="tagline">General Trading • Import • Sourcing</div>
-        </div>
-      </div>
+      <a href="#" class="flex items-center gap-4">
+        <img src="img/p2.png" alt="NÉGOCE ET COMMERCE DE RIM" class="h-16 md:h-20 w-auto object-contain" />
+        <div class="text-xs text-slate-300 shrink-0" data-i18n="tagline">General Trading • Import • Sourcing</div>
+      </a>
 
       <nav class="hidden md:flex items-center gap-6 text-sm text-slate-200">
-        <a class="hover:text-white" href="#about" data-i18n="nav.about">About</a>
-        <a class="hover:text-white" href="#services" data-i18n="nav.services">Services</a>
-        <a class="hover:text-white" href="#sectors" data-i18n="nav.sectors">Sectors</a>
+        <a class="hover:text-white" href="#commerce" data-i18n="nav.commerce">Commerce</a>
+        <a class="hover:text-white" href="#fisheries" data-i18n="nav.fisheries">Fisheries</a>
+        <a class="hover:text-white" href="#mining" data-i18n="nav.mining">Mining</a>
         <a class="hover:text-white" href="#contact" data-i18n="nav.contact">Contact</a>
       </nav>
 
       <div class="flex items-center gap-2">
-        <button id="btnEN" class="px-3 py-1.5 rounded-xl text-xs border border-white/15 hover:border-white/30 hover:bg-white/5">
+        <button id="btnEN"
+          class="px-3 py-1.5 rounded-xl text-xs border border-white/15 hover:border-white/30 hover:bg-white/5">
           EN
         </button>
-        <button id="btnFR" class="px-3 py-1.5 rounded-xl text-xs border border-white/15 hover:border-white/30 hover:bg-white/5">
+        <button id="btnFR"
+          class="px-3 py-1.5 rounded-xl text-xs border border-white/15 hover:border-white/30 hover:bg-white/5">
           FR
         </button>
       </div>
@@ -53,7 +115,7 @@
   </header>
 
   <!-- Hero -->
-  <section class="relative overflow-hidden grid-bg">
+  <section class="relative overflow-hidden grid-bg z-10">
     <div class="absolute inset-0 opacity-60">
       <div class="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-indigo-500/20 blur-3xl"></div>
       <div class="absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-cyan-500/20 blur-3xl"></div>
@@ -62,37 +124,42 @@
     <div class="relative mx-auto max-w-6xl px-4 py-16 md:py-24">
       <div class="grid md:grid-cols-2 gap-10 items-center">
         <div>
-          <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-slate-200">
+          <div
+            class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-slate-200">
             <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-            <span data-i18n="hero.badge">Sourcing • Import • Distribution</span>
+            <span data-i18n="hero.badge">Commerce • Fisheries • Mining</span>
           </div>
 
           <h1 class="mt-5 text-3xl md:text-5xl font-semibold leading-tight">
-            <span data-i18n="hero.title1">General Trading partner</span>
-            <span class="text-slate-300" data-i18n="hero.title2">for everyday business needs.</span>
+            <span data-i18n="hero.title1">Trusted partner</span>
+            <span class="text-slate-300" data-i18n="hero.title2">across trade, fisheries and mining.</span>
           </h1>
 
           <p class="mt-5 text-slate-300 leading-relaxed" data-i18n="hero.subtitle">
-            We connect suppliers and markets with reliable sourcing, import coordination, and flexible product coverage — from food items to automotive supplies and consumer goods.
+            We support businesses and institutions with structured operations in general commerce, fisheries commercialisation, and mining development — through reliable partnerships and a long-term approach.
           </p>
 
           <div class="mt-8 flex flex-col sm:flex-row gap-3">
-            <a href="#contact" class="inline-flex justify-center rounded-2xl bg-white text-slate-950 px-5 py-3 text-sm font-medium hover:bg-slate-200">
+            <a href="#contact"
+              class="inline-flex justify-center rounded-2xl bg-white text-slate-950 px-5 py-3 text-sm font-medium hover:bg-slate-200">
               <span data-i18n="hero.cta1">Request a quote</span>
             </a>
-            <a href="#services" class="inline-flex justify-center rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-medium hover:border-white/30">
-              <span data-i18n="hero.cta2">Explore capabilities</span>
+            <a href="#commerce"
+              class="inline-flex justify-center rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-medium hover:border-white/30">
+              <span data-i18n="hero.cta2">Explore our activities</span>
             </a>
           </div>
 
           <div class="mt-8 flex flex-wrap gap-3 text-xs text-slate-300">
-            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5" data-i18n="hero.pill1">Fast sourcing</span>
-            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5" data-i18n="hero.pill2">Multi-category import</span>
-            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5" data-i18n="hero.pill3">Practical logistics</span>
+            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5" data-i18n="hero.pill1">Commerce &amp; import-export</span>
+            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5" data-i18n="hero.pill2">Fisheries &amp; maritime</span>
+            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5" data-i18n="hero.pill3">Mining &amp; resources</span>
           </div>
         </div>
 
-        <div class="glass rounded-3xl p-6 md:p-8 shadow-2xl shadow-black/40">
+        <div class="glass glow-card rounded-3xl p-6 md:p-8 shadow-2xl shadow-black/40 relative">
+          <img src="img/wl1.png" alt="" class="absolute top-6 right-6 h-12 w-auto opacity-80 object-contain"
+            aria-hidden="true" />
           <div class="flex items-start justify-between gap-6">
             <div>
               <div class="text-sm text-slate-300" data-i18n="card.kicker">Head Office</div>
@@ -107,191 +174,214 @@
           </div>
 
           <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <div class="text-xs text-slate-300" data-i18n="card.box1.title">Core focus</div>
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-4 glow-card">
+              <div class="text-xs text-slate-300" data-i18n="card.box1.title">Commerce</div>
               <div class="mt-2 text-sm" data-i18n="card.box1.body">
-                Sourcing and importing diversified goods with a practical, business-first approach.
+                General trading, import-export, and collaboration with local and international companies.
               </div>
             </div>
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <div class="text-xs text-slate-300" data-i18n="card.box2.title">Coverage</div>
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-4 glow-card">
+              <div class="text-xs text-slate-300" data-i18n="card.box2.title">Fisheries</div>
               <div class="mt-2 text-sm" data-i18n="card.box2.body">
-                Food products, general merchandise, automotive parts, tires, vehicles, and more.
+                Fisheries and maritime commercialisation in partnership with sector operators.
               </div>
             </div>
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <div class="text-xs text-slate-300" data-i18n="card.box3.title">Sourcing regions</div>
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-4 glow-card">
+              <div class="text-xs text-slate-300" data-i18n="card.box3.title">Mining</div>
               <div class="mt-2 text-sm" data-i18n="card.box3.body">
-                Asia and international supplier networks depending on demand and availability.
+                Mining and resource development, with technical and commercial partners locally and abroad.
               </div>
             </div>
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <div class="text-xs text-slate-300" data-i18n="card.box4.title">Working style</div>
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-4 glow-card">
+              <div class="text-xs text-slate-300" data-i18n="card.box4.title">Our approach</div>
               <div class="mt-2 text-sm" data-i18n="card.box4.body">
-                Clear communication, realistic timelines, and flexible product sourcing.
+                Structured cooperation, clear communication, and long-term partnerships.
               </div>
             </div>
           </div>
 
           <div class="mt-6 text-xs text-slate-400" data-i18n="card.note">
-            Note: Product availability may vary depending on supplier conditions and shipping constraints.
+            We respond to B2B and institutional enquiries with discretion and practical next steps.
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- About -->
-  <section id="about" class="mx-auto max-w-6xl px-4 py-14">
+  <!-- Commerce -->
+  <section id="commerce" class="mx-auto max-w-6xl px-4 py-14 relative z-10">
     <div class="grid md:grid-cols-3 gap-6 items-start">
       <div class="md:col-span-1">
-        <h2 class="text-2xl font-semibold" data-i18n="about.title">A flexible general trading company</h2>
-        <p class="mt-3 text-slate-300 leading-relaxed" data-i18n="about.body">
-          NÉGOCE ET COMMERCE DE RIM supports businesses and partners with sourcing, import coordination, and distribution for a wide range of goods. We adapt to demand and focus on practical execution.
+        <h2 class="text-2xl font-semibold" data-i18n="commerce.title">Commerce &amp; General Trading</h2>
+        <p class="mt-3 text-slate-300 leading-relaxed" data-i18n="commerce.intro">
+          NÉGOCE ET COMMERCE DE RIM operates across the full spectrum of commercial trade, from day-to-day merchandise to structured import-export operations. We work with local and international partners to source, coordinate, and deliver a diversified range of goods, with a focus on reliability and discretion.
         </p>
       </div>
-
       <div class="md:col-span-2 grid sm:grid-cols-2 gap-4">
-        <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-          <div class="text-sm font-semibold" data-i18n="about.card1.title">General purpose coverage</div>
-          <p class="mt-2 text-sm text-slate-300" data-i18n="about.card1.body">
-            We operate across categories to respond quickly to market needs — without unnecessary complexity.
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6 glow-card">
+          <div class="text-sm font-semibold" data-i18n="commerce.c1.title">Multi-category sourcing</div>
+          <p class="mt-2 text-sm text-slate-300" data-i18n="commerce.c1.body">
+            Consumer goods, food products, industrial supplies and general merchandise, adapted to demand and partner requirements.
           </p>
         </div>
-        <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-          <div class="text-sm font-semibold" data-i18n="about.card2.title">Supplier-oriented sourcing</div>
-          <p class="mt-2 text-sm text-slate-300" data-i18n="about.card2.body">
-            We identify relevant suppliers and coordinate purchasing paths based on availability and product requirements.
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6 glow-card">
+          <div class="text-sm font-semibold" data-i18n="commerce.c2.title">Local &amp; international cooperation</div>
+          <p class="mt-2 text-sm text-slate-300" data-i18n="commerce.c2.body">
+            Structured collaboration with companies and distributors in the region and abroad for import, export and logistics coordination.
           </p>
         </div>
-        <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-          <div class="text-sm font-semibold" data-i18n="about.card3.title">Quality-minded execution</div>
-          <p class="mt-2 text-sm text-slate-300" data-i18n="about.card3.body">
-            We focus on reliable processes, clear communication, and realistic delivery planning.
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6 glow-card">
+          <div class="text-sm font-semibold" data-i18n="commerce.c3.title">Import-export coordination</div>
+          <p class="mt-2 text-sm text-slate-300" data-i18n="commerce.c3.body">
+            End-to-end support from sourcing to delivery, with clear processes and realistic timelines for B2B and institutional clients.
           </p>
         </div>
-        <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-          <div class="text-sm font-semibold" data-i18n="about.card4.title">B2B-first mindset</div>
-          <p class="mt-2 text-sm text-slate-300" data-i18n="about.card4.body">
-            We support importers, retailers, and organizations needing steady product sourcing and coordination.
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6 glow-card">
+          <div class="text-sm font-semibold" data-i18n="commerce.c4.title">Long-term partnerships</div>
+          <p class="mt-2 text-sm text-slate-300" data-i18n="commerce.c4.body">
+            We build lasting relationships with suppliers and buyers, prioritising transparency and execution quality.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Services -->
-  <section id="services" class="mx-auto max-w-6xl px-4 pb-14">
-    <div class="flex items-end justify-between gap-6 flex-wrap">
-      <div>
-        <h2 class="text-2xl font-semibold" data-i18n="services.title">What we do</h2>
-        <p class="mt-2 text-slate-300" data-i18n="services.subtitle">Simple, adaptable services that fit different trading needs.</p>
-      </div>
-      <a href="#contact" class="text-sm text-slate-200 hover:text-white underline underline-offset-4" data-i18n="services.link">
-        Contact for details
-      </a>
-    </div>
-
-    <div class="mt-6 grid md:grid-cols-3 gap-4">
-      <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-        <div class="text-sm font-semibold" data-i18n="services.s1.title">Product sourcing</div>
-        <p class="mt-2 text-sm text-slate-300" data-i18n="services.s1.body">
-          Identifying suppliers, comparing options, and matching products to your requirements.
+  <!-- Fisheries -->
+  <section id="fisheries" class="mx-auto max-w-6xl px-4 py-14 relative z-10">
+    <div class="grid md:grid-cols-3 gap-6 items-start">
+      <div class="md:col-span-1">
+        <h2 class="text-2xl font-semibold" data-i18n="fisheries.title">Fisheries &amp; Maritime Commerce</h2>
+        <p class="mt-3 text-slate-300 leading-relaxed" data-i18n="fisheries.intro">
+          Our fisheries division is dedicated to the sourcing, handling, and commercialisation of marine products in cooperation with established operators and sector partners. We engage with the value chain from catch to market, maintaining the standards and discretion required in the industry.
         </p>
       </div>
-      <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-        <div class="text-sm font-semibold" data-i18n="services.s2.title">Import coordination</div>
-        <p class="mt-2 text-sm text-slate-300" data-i18n="services.s2.body">
-          Coordinating purchasing steps and supporting the flow of goods from origin to destination.
-        </p>
-      </div>
-      <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-        <div class="text-sm font-semibold" data-i18n="services.s3.title">Distribution support</div>
-        <p class="mt-2 text-sm text-slate-300" data-i18n="services.s3.body">
-          Helping organize delivery and supply continuity for recurring business needs.
-        </p>
+      <div class="md:col-span-2 grid sm:grid-cols-2 gap-4">
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6 glow-card">
+          <div class="text-sm font-semibold" data-i18n="fisheries.c1.title">Collaboration with operators</div>
+          <p class="mt-2 text-sm text-slate-300" data-i18n="fisheries.c1.body">
+            We work with fishing operators and sector partners to secure supply and ensure commercialisation under agreed terms.
+          </p>
+        </div>
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6 glow-card">
+          <div class="text-sm font-semibold" data-i18n="fisheries.c2.title">Commercialisation &amp; distribution</div>
+          <p class="mt-2 text-sm text-slate-300" data-i18n="fisheries.c2.body">
+            Support for the marketing and distribution of marine products to wholesale, institutional and international buyers.
+          </p>
+        </div>
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6 glow-card">
+          <div class="text-sm font-semibold" data-i18n="fisheries.c3.title">Quality &amp; traceability</div>
+          <p class="mt-2 text-sm text-slate-300" data-i18n="fisheries.c3.body">
+            We pay attention to quality standards and traceability requirements expected by partners and authorities.
+          </p>
+        </div>
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6 glow-card">
+          <div class="text-sm font-semibold" data-i18n="fisheries.c4.title">B2B &amp; institutional relations</div>
+          <p class="mt-2 text-sm text-slate-300" data-i18n="fisheries.c4.body">
+            Structured relations with distributors, processors and institutions in the fisheries and maritime sector.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Sectors -->
-  <section id="sectors" class="mx-auto max-w-6xl px-4 pb-14">
-    <h2 class="text-2xl font-semibold" data-i18n="sectors.title">Key product sectors</h2>
-    <p class="mt-2 text-slate-300" data-i18n="sectors.subtitle">
-      We cover multiple categories depending on demand, availability, and supplier conditions.
-    </p>
-
-    <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-        <div class="text-sm font-semibold" data-i18n="sectors.c1.title">Food products</div>
-        <p class="mt-2 text-sm text-slate-300" data-i18n="sectors.c1.body">Everyday items and packaged goods for retail and wholesale channels.</p>
+  <!-- Mining -->
+  <section id="mining" class="mx-auto max-w-6xl px-4 py-14 relative z-10">
+    <div class="grid md:grid-cols-3 gap-6 items-start">
+      <div class="md:col-span-1">
+        <h2 class="text-2xl font-semibold" data-i18n="mining.title">Mining &amp; Resource Development</h2>
+        <p class="mt-3 text-slate-300 leading-relaxed" data-i18n="mining.intro">
+          In the mining sector, NÉGOCE ET COMMERCE DE RIM works with technical and commercial partners on both a local and international scale. Our activities focus on precious metals, notably gold, as well as other mineral resources, with an emphasis on structured cooperation, due diligence, and long-term project development.
+        </p>
       </div>
-      <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-        <div class="text-sm font-semibold" data-i18n="sectors.c2.title">General merchandise</div>
-        <p class="mt-2 text-sm text-slate-300" data-i18n="sectors.c2.body">Consumer goods and diversified products sourced internationally (including Asia).</p>
-      </div>
-      <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-        <div class="text-sm font-semibold" data-i18n="sectors.c3.title">Automotive parts</div>
-        <p class="mt-2 text-sm text-slate-300" data-i18n="sectors.c3.body">Spare parts, components, and supplies for maintenance and distribution.</p>
-      </div>
-      <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-        <div class="text-sm font-semibold" data-i18n="sectors.c4.title">Tires & vehicles</div>
-        <p class="mt-2 text-sm text-slate-300" data-i18n="sectors.c4.body">Tires, wheels, and vehicle sourcing depending on specifications and availability.</p>
+      <div class="md:col-span-2 grid sm:grid-cols-2 gap-4">
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6 glow-card">
+          <div class="text-sm font-semibold" data-i18n="mining.c1.title">Precious metals &amp; minerals</div>
+          <p class="mt-2 text-sm text-slate-300" data-i18n="mining.c1.body">
+            Focus on gold and other mineral commodities, in line with applicable frameworks and partner requirements.
+          </p>
+        </div>
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6 glow-card">
+          <div class="text-sm font-semibold" data-i18n="mining.c2.title">Technical &amp; commercial partnerships</div>
+          <p class="mt-2 text-sm text-slate-300" data-i18n="mining.c2.body">
+            Cooperation with specialised technical and commercial partners for exploration, development and marketing.
+          </p>
+        </div>
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6 glow-card">
+          <div class="text-sm font-semibold" data-i18n="mining.c3.title">Local &amp; international operations</div>
+          <p class="mt-2 text-sm text-slate-300" data-i18n="mining.c3.body">
+            Operations and projects at regional level and internationally, in compliance with applicable regulations.
+          </p>
+        </div>
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6 glow-card">
+          <div class="text-sm font-semibold" data-i18n="mining.c4.title">Structured cooperation</div>
+          <p class="mt-2 text-sm text-slate-300" data-i18n="mining.c4.body">
+            Due diligence, clear agreements and long-term commitment to project development and commercial relations.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="mx-auto max-w-6xl px-4 pb-16">
-    <div class="rounded-3xl border border-white/10 bg-white/5 p-7 md:p-10">
+  <section id="contact" class="mx-auto max-w-6xl px-4 pb-16 relative z-10">
+    <div class="rounded-3xl border border-white/10 bg-white/5 p-7 md:p-10 glow-card">
       <div class="grid md:grid-cols-2 gap-8">
         <div>
           <h2 class="text-2xl font-semibold" data-i18n="contact.title">Contact</h2>
           <p class="mt-2 text-slate-300" data-i18n="contact.subtitle">
-            Tell us what you need. We’ll respond with a practical sourcing path and next steps.
+            Tell us what you need. We'll respond with a practical sourcing path and next steps.
           </p>
 
           <div class="mt-6 space-y-3 text-sm text-slate-200">
             <div class="flex gap-3">
               <span class="text-slate-400">•</span>
-              <span><span class="text-slate-400" data-i18n="contact.locationLabel">Location:</span> <span data-i18n="contact.location">Tevragh Zeina, Nouakchott (MR)</span></span>
+              <span><span class="text-slate-400" data-i18n="contact.locationLabel">Location:</span> <span
+                  data-i18n="contact.location">Tevragh Zeina, Nouakchott (MR)</span></span>
             </div>
             <div class="flex gap-3">
               <span class="text-slate-400">•</span>
-              <span><span class="text-slate-400" data-i18n="contact.emailLabel">Email:</span> contact@negoce-rim.com</span>
+              <span><span class="text-slate-400" data-i18n="contact.emailLabel">Email:</span> <a
+                  href="mailto:negocederim@gmail.com"
+                  class="hover:text-white underline-offset-2 hover:underline">negocederim@gmail.com</a></span>
             </div>
             <div class="flex gap-3">
               <span class="text-slate-400">•</span>
-              <span><span class="text-slate-400" data-i18n="contact.phoneLabel">Phone:</span> +222 45 00 00 00</span>
+              <span><span class="text-slate-400" data-i18n="contact.phoneLabel">Phone:</span> <a href="tel:+34632527546"
+                  class="hover:text-white underline-offset-2 hover:underline">+34 632 52 75 46</a>, <a
+                  href="tel:+22247951096" class="hover:text-white underline-offset-2 hover:underline">+222 47 95 10
+                  96</a></span>
             </div>
           </div>
-
-          <p class="mt-6 text-xs text-slate-400" data-i18n="contact.note">
-            Replace email/phone with your real details whenever you’re ready.
-          </p>
         </div>
 
-        <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-6">
+        <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-6 glow-card">
           <div class="text-sm font-semibold" data-i18n="contact.formTitle">Quick request</div>
           <p class="mt-2 text-sm text-slate-300" data-i18n="contact.formSubtitle">
-            We’ll get back to you with next steps.
+            We'll get back to you with next steps.
           </p>
 
-          <form name="contact" method="POST" action="/thank-you.html" data-netlify="true" data-netlify-honeypot="bot-field" class="mt-5 space-y-3">
+          <form name="contact" method="POST" action="/thank-you.html" data-netlify="true"
+            data-netlify-honeypot="bot-field" class="mt-5 space-y-3">
             <input type="hidden" name="form-name" value="contact" />
             <p class="hidden" aria-hidden="true">
-              <label>Don’t fill this out: <input name="bot-field" /></label>
+              <label>Don't fill this out: <input name="bot-field" /></label>
             </p>
-            <input id="fName" name="name" class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-white/25"
-                   type="text" required data-i18n-placeholder="contact.pName" placeholder="Your name" />
-            <input id="fCompany" name="company" class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-white/25"
-                   type="text" data-i18n-placeholder="contact.pCompany" placeholder="Company (optional)" />
-            <input id="fNeed" name="need" class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-white/25"
-                   type="text" required data-i18n-placeholder="contact.pNeed" placeholder="What do you want to import?" />
-            <textarea id="fMsg" name="message" rows="4" class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-white/25"
-                      data-i18n-placeholder="contact.pMsg" placeholder="Details (quantity, destination, timeline, specs...)"></textarea>
+            <input id="fName" name="name"
+              class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-white/25"
+              type="text" required data-i18n-placeholder="contact.pName" placeholder="Your name" />
+            <input id="fCompany" name="company"
+              class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-white/25"
+              type="text" data-i18n-placeholder="contact.pCompany" placeholder="Company (optional)" />
+            <input id="fSubject" name="subject"
+              class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-white/25"
+              type="text" required data-i18n-placeholder="contact.pSubject" placeholder="Subject" />
+            <textarea id="fMsg" name="message" rows="4"
+              class="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-white/25"
+              data-i18n-placeholder="contact.pMsg"
+              placeholder="Details (quantity, destination, timeline, specs...)"></textarea>
 
-            <button class="w-full rounded-2xl bg-white text-slate-950 px-5 py-3 text-sm font-medium hover:bg-slate-200" type="submit">
+            <button class="w-full rounded-2xl bg-white text-slate-950 px-5 py-3 text-sm font-medium hover:bg-slate-200"
+              type="submit">
               <span data-i18n="contact.send">Send request</span>
             </button>
           </form>
@@ -301,138 +391,169 @@
   </section>
 
   <footer class="border-t border-white/10">
-    <div class="mx-auto max-w-6xl px-4 py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-sm text-slate-400">
-      <div>© <span id="year"></span> NÉGOCE ET COMMERCE DE RIM</div>
+    <div
+      class="mx-auto max-w-6xl px-4 py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-sm text-slate-400">
+      <div class="flex items-center gap-3">
+        <img src="img/p2.png" alt="NÉGOCE ET COMMERCE DE RIM" class="h-16 w-auto object-contain opacity-90" />
+        <span>© <span id="year"></span></span>
+      </div>
       <div class="flex gap-6">
-        <a class="hover:text-slate-200" href="#about" data-i18n="footer.about">About</a>
-        <a class="hover:text-slate-200" href="#services" data-i18n="footer.services">Services</a>
+        <a class="hover:text-slate-200" href="#commerce" data-i18n="footer.commerce">Commerce</a>
+        <a class="hover:text-slate-200" href="#fisheries" data-i18n="footer.fisheries">Fisheries</a>
+        <a class="hover:text-slate-200" href="#mining" data-i18n="footer.mining">Mining</a>
         <a class="hover:text-slate-200" href="#contact" data-i18n="footer.contact">Contact</a>
       </div>
     </div>
   </footer>
 
   <script>
+    // Cursor ambient suavemente interpolado al ratón
+    (() => {
+      const blob = document.querySelector(".cursor-blob");
+      if (!blob) return;
+
+      let targetX = window.innerWidth / 2;
+      let targetY = window.innerHeight / 2;
+      let currentX = targetX;
+      let currentY = targetY;
+      const ease = 0.08; // suavidad de movimiento
+
+      window.addEventListener("pointermove", (e) => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+        blob.style.opacity = 0.9;
+      });
+
+      const tick = () => {
+        currentX += (targetX - currentX) * ease;
+        currentY += (targetY - currentY) * ease;
+        blob.style.transform = `translate(${currentX}px, ${currentY}px) translate(-50%, -50%)`;
+        requestAnimationFrame(tick);
+      };
+      tick();
+    })();
+  </script>
+
+  <script>
     const dict = {
       en: {
-        tagline: "General Trading • Import • Sourcing",
-        nav: { about: "About", services: "Services", sectors: "Sectors", contact: "Contact" },
+        tagline: "Commerce • Fisheries • Mining",
+        nav: { commerce: "Commerce", fisheries: "Fisheries", mining: "Mining", contact: "Contact" },
         hero: {
-          badge: "Sourcing • Import • Distribution",
-          title1: "General Trading partner",
-          title2: "for everyday business needs.",
+          badge: "Commerce • Fisheries • Mining",
+          title1: "Trusted partner",
+          title2: "across trade, fisheries and mining.",
           subtitle:
-            "We connect suppliers and markets with reliable sourcing, import coordination, and flexible product coverage — from food items to automotive supplies and consumer goods.",
+            "We support businesses and institutions with structured operations in general commerce, fisheries commercialisation, and mining development — through reliable partnerships and a long-term approach.",
           cta1: "Request a quote",
-          cta2: "Explore capabilities",
-          pill1: "Fast sourcing",
-          pill2: "Multi-category import",
-          pill3: "Practical logistics"
+          cta2: "Explore our activities",
+          pill1: "Commerce & import-export",
+          pill2: "Fisheries & maritime",
+          pill3: "Mining & resources"
         },
         card: {
           kicker: "Head Office",
           office: "Tevragh Zeina, Nouakchott",
           address: "Avenue Moktar Ould Daddah (near the business district)",
           availability: "Available for B2B requests",
-          box1: { title: "Core focus", body: "Sourcing and importing diversified goods with a practical, business-first approach." },
-          box2: { title: "Coverage", body: "Food products, general merchandise, automotive parts, tires, vehicles, and more." },
-          box3: { title: "Sourcing regions", body: "Asia and international supplier networks depending on demand and availability." },
-          box4: { title: "Working style", body: "Clear communication, realistic timelines, and flexible product sourcing." },
-          note: "Note: Product availability may vary depending on supplier conditions and shipping constraints."
+          box1: { title: "Commerce", body: "General trading, import-export, and collaboration with local and international companies." },
+          box2: { title: "Fisheries", body: "Fisheries and maritime commercialisation in partnership with sector operators." },
+          box3: { title: "Mining", body: "Mining and resource development, with technical and commercial partners locally and abroad." },
+          box4: { title: "Our approach", body: "Structured cooperation, clear communication, and long-term partnerships." },
+          note: "We respond to B2B and institutional enquiries with discretion and practical next steps."
         },
-        about: {
-          title: "A flexible general trading company",
-          body:
-            "NÉGOCE ET COMMERCE DE RIM supports businesses and partners with sourcing, import coordination, and distribution for a wide range of goods. We adapt to demand and focus on practical execution.",
-          card1: { title: "General purpose coverage", body: "We operate across categories to respond quickly to market needs — without unnecessary complexity." },
-          card2: { title: "Supplier-oriented sourcing", body: "We identify relevant suppliers and coordinate purchasing paths based on availability and product requirements." },
-          card3: { title: "Quality-minded execution", body: "We focus on reliable processes, clear communication, and realistic delivery planning." },
-          card4: { title: "B2B-first mindset", body: "We support importers, retailers, and organizations needing steady product sourcing and coordination." }
+        commerce: {
+          title: "Commerce & General Trading",
+          intro: "NÉGOCE ET COMMERCE DE RIM operates across the full spectrum of commercial trade, from day-to-day merchandise to structured import-export operations. We work with local and international partners to source, coordinate, and deliver a diversified range of goods, with a focus on reliability and discretion.",
+          c1: { title: "Multi-category sourcing", body: "Consumer goods, food products, industrial supplies and general merchandise, adapted to demand and partner requirements." },
+          c2: { title: "Local & international cooperation", body: "Structured collaboration with companies and distributors in the region and abroad for import, export and logistics coordination." },
+          c3: { title: "Import-export coordination", body: "End-to-end support from sourcing to delivery, with clear processes and realistic timelines for B2B and institutional clients." },
+          c4: { title: "Long-term partnerships", body: "We build lasting relationships with suppliers and buyers, prioritising transparency and execution quality." }
         },
-        services: {
-          title: "What we do",
-          subtitle: "Simple, adaptable services that fit different trading needs.",
-          link: "Contact for details",
-          s1: { title: "Product sourcing", body: "Identifying suppliers, comparing options, and matching products to your requirements." },
-          s2: { title: "Import coordination", body: "Coordinating purchasing steps and supporting the flow of goods from origin to destination." },
-          s3: { title: "Distribution support", body: "Helping organize delivery and supply continuity for recurring business needs." }
+        fisheries: {
+          title: "Fisheries & Maritime Commerce",
+          intro: "Our fisheries division is dedicated to the sourcing, handling, and commercialisation of marine products in cooperation with established operators and sector partners. We engage with the value chain from catch to market, maintaining the standards and discretion required in the industry.",
+          c1: { title: "Collaboration with operators", body: "We work with fishing operators and sector partners to secure supply and ensure commercialisation under agreed terms." },
+          c2: { title: "Commercialisation & distribution", body: "Support for the marketing and distribution of marine products to wholesale, institutional and international buyers." },
+          c3: { title: "Quality & traceability", body: "We pay attention to quality standards and traceability requirements expected by partners and authorities." },
+          c4: { title: "B2B & institutional relations", body: "Structured relations with distributors, processors and institutions in the fisheries and maritime sector." }
         },
-        sectors: {
-          title: "Key product sectors",
-          subtitle: "We cover multiple categories depending on demand, availability, and supplier conditions.",
-          c1: { title: "Food products", body: "Everyday items and packaged goods for retail and wholesale channels." },
-          c2: { title: "General merchandise", body: "Consumer goods and diversified products sourced internationally (including Asia)." },
-          c3: { title: "Automotive parts", body: "Spare parts, components, and supplies for maintenance and distribution." },
-          c4: { title: "Tires & vehicles", body: "Tires, wheels, and vehicle sourcing depending on specifications and availability." }
+        mining: {
+          title: "Mining & Resource Development",
+          intro: "In the mining sector, NÉGOCE ET COMMERCE DE RIM works with technical and commercial partners on both a local and international scale. Our activities focus on precious metals, notably gold, as well as other mineral resources, with an emphasis on structured cooperation, due diligence, and long-term project development.",
+          c1: { title: "Precious metals & minerals", body: "Focus on gold and other mineral commodities, in line with applicable frameworks and partner requirements." },
+          c2: { title: "Technical & commercial partnerships", body: "Cooperation with specialised technical and commercial partners for exploration, development and marketing." },
+          c3: { title: "Local & international operations", body: "Operations and projects at regional level and internationally, in compliance with applicable regulations." },
+          c4: { title: "Structured cooperation", body: "Due diligence, clear agreements and long-term commitment to project development and commercial relations." }
         },
         contact: {
           title: "Contact",
-          subtitle: "Tell us what you need. We’ll respond with a practical sourcing path and next steps.",
+          subtitle: "Tell us what you need. We'll respond with a practical sourcing path and next steps.",
           locationLabel: "Location:",
           location: "Tevragh Zeina, Nouakchott (MR)",
           emailLabel: "Email:",
           phoneLabel: "Phone:",
-          note: "Replace email/phone with your real details whenever you’re ready.",
+          note: "Replace email/phone with your real details whenever you're ready.",
           formTitle: "Quick request",
-          formSubtitle: "We’ll get back to you with next steps.",
+          formSubtitle: "We'll get back to you with next steps.",
           pName: "Your name",
           pCompany: "Company (optional)",
-          pNeed: "What do you want to import?",
+          pSubject: "Subject",
           pMsg: "Details (quantity, destination, timeline, specs...)",
           send: "Send request"
         },
-        footer: { about: "About", services: "Services", contact: "Contact" }
+        footer: { commerce: "Commerce", fisheries: "Fisheries", mining: "Mining", contact: "Contact" }
       },
 
       fr: {
-        tagline: "Négoce général • Import • Sourcing",
-        nav: { about: "À propos", services: "Services", sectors: "Secteurs", contact: "Contact" },
+        tagline: "Commerce • Pêche • Mines",
+        nav: { commerce: "Commerce", fisheries: "Pêche", mining: "Mines", contact: "Contact" },
         hero: {
-          badge: "Sourcing • Import • Distribution",
-          title1: "Votre partenaire",
-          title2: "en négoce général.",
+          badge: "Commerce • Pêche • Mines",
+          title1: "Partenaire de confiance",
+          title2: "en commerce, pêche et mines.",
           subtitle:
-            "Nous relions fournisseurs et marchés grâce à un sourcing fiable, une coordination d’importation et une couverture multi-produits — des denrées alimentaires aux pièces automobiles et biens de consommation.",
+            "Nous accompagnons entreprises et institutions avec des opérations structurées en négoce général, commercialisation des produits de la pêche et développement minier — dans un cadre de partenariats fiables et une vision long terme.",
           cta1: "Demander un devis",
-          cta2: "Voir nos capacités",
-          pill1: "Sourcing rapide",
-          pill2: "Import multi-catégories",
-          pill3: "Logistique pragmatique"
+          cta2: "Découvrir nos activités",
+          pill1: "Commerce & import-export",
+          pill2: "Pêche & maritime",
+          pill3: "Mines & ressources"
         },
         card: {
           kicker: "Siège",
           office: "Tevragh Zeina, Nouakchott",
-          address: "Avenue Moktar Ould Daddah (proche du quartier d’affaires)",
+          address: "Avenue Moktar Ould Daddah (proche du quartier d'affaires)",
           availability: "Disponible pour demandes B2B",
-          box1: { title: "Orientation", body: "Sourcing et importation de marchandises variées, avec une approche simple et orientée business." },
-          box2: { title: "Couverture", body: "Produits alimentaires, marchandises diverses, pièces auto, pneus, véhicules, et plus." },
-          box3: { title: "Régions d’approvisionnement", body: "Asie et réseaux internationaux selon la demande et la disponibilité." },
-          box4: { title: "Méthode", body: "Communication claire, délais réalistes et sourcing flexible." },
-          note: "Note : La disponibilité peut varier selon les conditions fournisseurs et les contraintes d’expédition."
+          box1: { title: "Commerce", body: "Négoce général, import-export et collaboration avec entreprises locales et internationales." },
+          box2: { title: "Pêche", body: "Pêche et commercialisation maritime en partenariat avec les opérateurs du secteur." },
+          box3: { title: "Mines", body: "Mines et développement des ressources, avec partenaires techniques et commerciaux au plan local et international." },
+          box4: { title: "Notre approche", body: "Coopération structurée, communication claire et partenariats durables." },
+          note: "Nous répondons aux demandes B2B et institutionnelles avec discrétion et des suites concrètes."
         },
-        about: {
-          title: "Une société de négoce flexible",
-          body:
-            "NÉGOCE ET COMMERCE DE RIM accompagne entreprises et partenaires avec le sourcing, la coordination d’importation et la distribution d’une large gamme de produits. Nous nous adaptons à la demande et privilégions l’exécution.",
-          card1: { title: "Couverture généraliste", body: "Une approche multi-catégories pour répondre vite aux besoins du marché, sans complexité inutile." },
-          card2: { title: "Sourcing orienté fournisseurs", body: "Identification des fournisseurs et coordination des achats selon disponibilité et exigences produit." },
-          card3: { title: "Exécution soignée", body: "Process simples, communication claire et planification réaliste des livraisons." },
-          card4: { title: "Approche B2B", body: "Support pour importateurs, distributeurs et organisations ayant des besoins récurrents." }
+        commerce: {
+          title: "Commerce & négoce général",
+          intro: "NÉGOCE ET COMMERCE DE RIM intervient sur l'ensemble du spectre du commerce, du négoce courant aux opérations structurées d'import-export. Nous travaillons avec des partenaires locaux et internationaux pour sourcer, coordonner et livrer une gamme diversifiée de marchandises, avec un souci de fiabilité et de discrétion.",
+          c1: { title: "Sourcing multi-catégories", body: "Biens de consommation, produits alimentaires, fournitures industrielles et marchandises diverses, adaptés à la demande et aux exigences des partenaires." },
+          c2: { title: "Coopération locale & internationale", body: "Collaboration structurée avec entreprises et distributeurs de la région et à l'étranger pour l'import, l'export et la logistique." },
+          c3: { title: "Coordination import-export", body: "Accompagnement de bout en bout du sourcing à la livraison, avec des process clairs et des délais réalistes pour clients B2B et institutionnels." },
+          c4: { title: "Partenariats durables", body: "Nous construisons des relations durables avec fournisseurs et acheteurs, en privilégiant transparence et qualité d'exécution." }
         },
-        services: {
-          title: "Nos services",
-          subtitle: "Des services simples et adaptables selon vos besoins.",
-          link: "Nous contacter",
-          s1: { title: "Sourcing produits", body: "Recherche fournisseurs, comparaison d’options et adéquation aux spécifications." },
-          s2: { title: "Coordination import", body: "Coordination des étapes d’achat et accompagnement du flux d’origine à destination." },
-          s3: { title: "Appui distribution", body: "Aide à l’organisation de la livraison et à la continuité d’approvisionnement." }
+        fisheries: {
+          title: "Pêche & commerce maritime",
+          intro: "Notre division pêche est dédiée au sourcing, à la manutention et à la commercialisation des produits de la mer en coopération avec des opérateurs et partenaires du secteur. Nous intervenons sur la chaîne de valeur de la capture au marché, dans le respect des standards et de la discrétion attendus.",
+          c1: { title: "Collaboration avec les opérateurs", body: "Nous travaillons avec les opérateurs de pêche et partenaires du secteur pour sécuriser l'approvisionnement et la commercialisation selon les termes convenus." },
+          c2: { title: "Commercialisation & distribution", body: "Appui à la mise en marché et à la distribution des produits de la mer vers grossistes, acheteurs institutionnels et internationaux." },
+          c3: { title: "Qualité & traçabilité", body: "Nous veillons aux standards de qualité et aux exigences de traçabilité attendus par les partenaires et les autorités." },
+          c4: { title: "Relations B2B & institutionnelles", body: "Relations structurées avec distributeurs, transformateurs et institutions du secteur pêche et maritime." }
         },
-        sectors: {
-          title: "Secteurs clés",
-          subtitle: "Plusieurs catégories selon la demande, la disponibilité et les conditions fournisseurs.",
-          c1: { title: "Produits alimentaires", body: "Produits du quotidien et articles emballés pour retail et wholesale." },
-          c2: { title: "Marchandises diverses", body: "Biens de consommation et produits variés issus de réseaux internationaux (dont l’Asie)." },
-          c3: { title: "Pièces automobiles", body: "Pièces, composants et consommables pour maintenance et distribution." },
-          c4: { title: "Pneus & véhicules", body: "Pneus, roues et sourcing véhicules selon spécifications et disponibilité." }
+        mining: {
+          title: "Mines & développement des ressources",
+          intro: "Dans le secteur minier, NÉGOCE ET COMMERCE DE RIM travaille avec des partenaires techniques et commerciaux à l'échelle locale et internationale. Nos activités portent sur les métaux précieux, notamment l'or, ainsi que d'autres ressources minérales, avec un accent sur la coopération structurée, la diligence raisonnable et le développement de projets à long terme.",
+          c1: { title: "Métaux précieux & minéraux", body: "Focus sur l'or et autres matières minérales, dans le respect des cadres applicables et des exigences des partenaires." },
+          c2: { title: "Partenariats techniques & commerciaux", body: "Coopération avec des partenaires techniques et commerciaux spécialisés pour l'exploration, le développement et la mise en marché." },
+          c3: { title: "Opérations locales & internationales", body: "Opérations et projets au niveau régional et à l'international, dans le respect de la réglementation en vigueur." },
+          c4: { title: "Coopération structurée", body: "Diligence raisonnable, accords clairs et engagement à long terme pour le développement de projets et les relations commerciales." }
         },
         contact: {
           title: "Contact",
@@ -441,23 +562,23 @@
           location: "Tevragh Zeina, Nouakchott (MR)",
           emailLabel: "Email :",
           phoneLabel: "Téléphone :",
-          note: "Remplacez l’email/le téléphone par vos infos réelles quand vous voulez.",
+          note: "Remplacez l'email/le téléphone par vos infos réelles quand vous voulez.",
           formTitle: "Demande rapide",
           formSubtitle: "Nous vous recontacterons avec les prochaines étapes.",
           pName: "Votre nom",
           pCompany: "Entreprise (optionnel)",
-          pNeed: "Que souhaitez-vous importer ?",
+          pSubject: "Objet",
           pMsg: "Détails (quantité, destination, délai, spécifications...)",
           send: "Envoyer la demande"
         },
-        footer: { about: "À propos", services: "Services", contact: "Contact" }
+        footer: { commerce: "Commerce", fisheries: "Pêche", mining: "Mines", contact: "Contact" }
       }
     };
 
     const yearEl = document.getElementById("year");
     yearEl.textContent = new Date().getFullYear();
 
-    function setActive(lang){
+    function setActive(lang) {
       localStorage.setItem("lang", lang);
       document.documentElement.lang = lang;
 
@@ -480,8 +601,8 @@
       const btnFR = document.getElementById("btnFR");
       const on = "border-white/30 bg-white/10";
       const off = "border-white/15 bg-transparent";
-      btnEN.className = btnEN.className.replace(on, "").replace(off, "") + " " + (lang==="en" ? on : off);
-      btnFR.className = btnFR.className.replace(on, "").replace(off, "") + " " + (lang==="fr" ? on : off);
+      btnEN.className = btnEN.className.replace(on, "").replace(off, "") + " " + (lang === "en" ? on : off);
+      btnFR.className = btnFR.className.replace(on, "").replace(off, "") + " " + (lang === "fr" ? on : off);
     }
 
     document.getElementById("btnEN").addEventListener("click", () => setActive("en"));
@@ -490,4 +611,5 @@
     setActive(localStorage.getItem("lang") || "en");
   </script>
 </body>
+
 </html>

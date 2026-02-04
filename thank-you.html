@@ -20,14 +20,9 @@
 <body class="min-h-screen bg-slate-950 text-slate-100">
   <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur">
     <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-3">
-        <div class="h-10 w-10 rounded-2xl bg-white/10 border border-white/10 grid place-items-center">
-          <span class="text-sm font-semibold">NCR</span>
-        </div>
-        <div class="leading-tight">
-          <div class="font-semibold tracking-wide">NÉGOCE ET COMMERCE DE RIM</div>
-          <div class="text-xs text-slate-300" data-i18n="tagline">General Trading • Import • Sourcing</div>
-        </div>
+      <a href="/" class="flex items-center gap-4">
+        <img src="img/p2.png" alt="NÉGOCE ET COMMERCE DE RIM" class="h-16 md:h-20 w-auto object-contain" />
+        <div class="text-xs text-slate-300 shrink-0" data-i18n="tagline">General Trading • Import • Sourcing</div>
       </a>
       <div class="flex items-center gap-2">
         <button id="btnEN" class="px-3 py-1.5 rounded-xl text-xs border border-white/15 hover:border-white/30 hover:bg-white/5">EN</button>
@@ -71,13 +66,13 @@
   <script>
     const dict = {
       en: {
-        tagline: "General Trading • Import • Sourcing",
+        tagline: "Commerce • Fisheries • Mining",
         title: "Thank you. We received your request and will reply shortly.",
         subtitle: "We'll get back to you with next steps.",
         backHome: "Back to Home"
       },
       fr: {
-        tagline: "Négoce général • Import • Sourcing",
+        tagline: "Commerce • Pêche • Mines",
         title: "Merci. Nous avons bien reçu votre demande et nous vous répondrons rapidement.",
         subtitle: "Nous vous recontacterons avec les prochaines étapes.",
         backHome: "Retour à l'accueil"
