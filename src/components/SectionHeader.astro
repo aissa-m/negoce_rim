@@ -1,0 +1,8 @@
+---
+const { kicker, kickerEs, kickerFr, title, titleEs, titleFr, lead, leadEs, leadFr } = Astro.props;
+---
+<div style="max-width:760px">
+  <div class="kicker" data-en={kicker} data-es={kickerEs || kicker} data-fr={kickerFr || kicker}>{kicker}</div>
+  <h2 class="h2" data-en={title} data-es={titleEs || title} data-fr={titleFr || title}>{title}</h2>
+  {lead && <p class="lead" data-en={lead} data-es={leadEs || lead} data-fr={leadFr || lead}>{lead}</p>}
+</div>
