@@ -2,10 +2,10 @@
 import Icon from './Icon.astro';
 const { active = 'home' } = Astro.props;
 const nav = [
-  ['home','/','Home','Inicio','Accueil','trade'],
+  ['home','/','Home','Inicio','Accueil','home'],
   ['about','/about/','About','Empresa','À propos','globe'],
   ['services','/services/','Services','Servicios','Services','handshake'],
-  ['fisheries','/fisheries/','Fisheries','Pesca','Pêche','ship'],
+  ['fisheries','/fisheries/','Fisheries','Pesca','Pêche','fish'],
   ['mining','/mining/','Mining','Minería','Mines','pickaxe'],
   ['deluxelube','/deluxelube/','DeluxeLube','DeluxeLube','DeluxeLube','oil'],
   ['contact','/contact/','Contact','Contacto','Contact','mail']
@@ -14,8 +14,7 @@ const nav = [
 <header class="header">
   <div class="container header-row">
     <a class="brand" href="/" aria-label="NÉGOCE ET COMMERCE DE RIM">
-      <img class="logo" src="/original_logo.svg" alt="NÉGOCE ET COMMERCE DE RIM" />
-      <span class="brand-text">NÉGOCE ET COMMERCE DE RIM</span>
+      <img class="logo" src="/black_logo.svg" alt="NÉGOCE ET COMMERCE DE RIM" />
     </a>
 
     <nav class="nav" aria-label="Main navigation">
