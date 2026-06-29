@@ -3,55 +3,54 @@ import Icon from './Icon.astro';
 ---
 <footer class="footer">
   <div class="container">
-    <div class="footer-cta surface">
-      <div>
-        <span class="badge"><Icon name="handshake" /><span data-en="Open to serious B2B opportunities" data-es="Abiertos a oportunidades B2B serias" data-fr="Ouverts aux opportunités B2B sérieuses">Open to serious B2B opportunities</span></span>
-        <h2 data-en="Looking for a commercial bridge with Mauritania?" data-es="¿Buscas un puente comercial con Mauritania?" data-fr="Vous cherchez un pont commercial avec la Mauritanie ?">Looking for a commercial bridge with Mauritania?</h2>
-        <p data-en="Contact us for DeluxeLube supply, fisheries, mining resources or import-export opportunities." data-es="Contacta con nosotros para suministro DeluxeLube, pesca, recursos mineros u oportunidades import-export." data-fr="Contactez-nous pour DeluxeLube, pêche, ressources minières ou opportunités import-export.">Contact us for DeluxeLube supply, fisheries, mining resources or import-export opportunities.</p>
-      </div>
-      <a class="btn btn-primary" href="/contact/"><Icon name="arrow" /><span data-en="Contact us" data-es="Contactar" data-fr="Nous contacter">Contact us</span></a>
-    </div>
+    <div class="footer-shell surface">
+      <div class="footer-top">
+        <div class="footer-brand-block">
+          <img data-logo src="/black_logo.svg" alt="NÉGOCE ET COMMERCE DE RIM" />
+          <p data-en="Mauritanian trading company focused on import-export, fisheries, mining resources and official DeluxeLube distribution." data-es="Empresa mauritana de comercio enfocada en import-export, pesca, recursos mineros y distribución oficial DeluxeLube." data-fr="Entreprise mauritanienne de commerce spécialisée dans l’import-export, la pêche, les ressources minières et la distribution officielle DeluxeLube.">Mauritanian trading company focused on import-export, fisheries, mining resources and official DeluxeLube distribution.</p>
+        </div>
 
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <img data-logo src="/black_logo.svg" alt="NÉGOCE ET COMMERCE DE RIM" />
-        <p data-en="Mauritanian trading company focused on import-export, fisheries, mining resources and official DeluxeLube distribution." data-es="Empresa mauritana de comercio enfocada en import-export, pesca, recursos mineros y distribución oficial DeluxeLube." data-fr="Entreprise mauritanienne de commerce spécialisée dans l’import-export, la pêche, les ressources minières et la distribution officielle DeluxeLube.">Mauritanian trading company focused on import-export, fisheries, mining resources and official DeluxeLube distribution.</p>
-        <div class="footer-badges">
-          <span class="badge"><Icon name="globe" /> Mauritania</span>
-          <span class="badge"><Icon name="handshake" /> B2B</span>
-          <span class="badge"><Icon name="waves" /> Maritime</span>
-          <span class="badge"><Icon name="oil" /> DeluxeLube</span>
+        <div class="footer-cta-block">
+          <span class="badge"><Icon name="handshake" /><span data-en="B2B opportunities" data-es="Oportunidades B2B" data-fr="Opportunités B2B">B2B opportunities</span></span>
+          <h2 data-en="Commercial bridge with Mauritania" data-es="Puente comercial con Mauritania" data-fr="Pont commercial avec la Mauritanie">Commercial bridge with Mauritania</h2>
+          <a class="btn btn-primary" href="/contact/"><Icon name="arrow" /><span data-en="Contact us" data-es="Contactar" data-fr="Nous contacter">Contact us</span></a>
         </div>
       </div>
 
-      <div>
-        <h3 data-en="Company" data-es="Empresa" data-fr="Entreprise">Company</h3>
-        <a class="footer-link" href="/"><Icon name="home" /><span data-en="Home" data-es="Inicio" data-fr="Accueil">Home</span></a>
-        <a class="footer-link" href="/about/"><Icon name="globe" /><span data-en="About us" data-es="Sobre nosotros" data-fr="À propos">About us</span></a>
-        <a class="footer-link" href="/services/"><Icon name="handshake" /><span data-en="Services" data-es="Servicios" data-fr="Services">Services</span></a>
-        <a class="footer-link" href="/contact/"><Icon name="mail" /><span data-en="Contact" data-es="Contacto" data-fr="Contact">Contact</span></a>
+      <div class="footer-columns">
+        <div class="footer-card">
+          <h3 data-en="Company" data-es="Empresa" data-fr="Entreprise">Company</h3>
+          <a class="footer-link" href="/"><Icon name="home" /><span data-en="Home" data-es="Inicio" data-fr="Accueil">Home</span></a>
+          <a class="footer-link" href="/about/"><Icon name="globe" /><span data-en="About us" data-es="Sobre nosotros" data-fr="À propos">About us</span></a>
+          <a class="footer-link" href="/services/"><Icon name="handshake" /><span data-en="Services" data-es="Servicios" data-fr="Services">Services</span></a>
+        </div>
+
+        <div class="footer-card">
+          <h3 data-en="Sectors" data-es="Sectores" data-fr="Secteurs">Sectors</h3>
+          <a class="footer-link" href="/fisheries/"><Icon name="fish" /><span data-en="Fisheries" data-es="Pesca" data-fr="Pêche">Fisheries</span></a>
+          <a class="footer-link" href="/mining/"><Icon name="pickaxe" /><span data-en="Mining" data-es="Minería" data-fr="Mines">Mining</span></a>
+          <a class="footer-link" href="/deluxelube/"><Icon name="oil" /><span>DeluxeLube</span></a>
+        </div>
+
+        <div class="footer-card">
+          <h3 data-en="Product" data-es="Producto" data-fr="Produit">Product</h3>
+          <a class="footer-link" href="https://deluxelube.com/product.php?id=36" target="_blank" rel="noopener"><Icon name="document" /><span data-en="Official product page" data-es="Ficha oficial" data-fr="Page officielle">Official product page</span></a>
+          <span class="footer-link"><Icon name="waves" /><span data-en="Maritime use" data-es="Uso marítimo" data-fr="Usage maritime">Maritime use</span></span>
+          <span class="footer-link"><Icon name="oil" /><span data-en="2T outboard oil" data-es="Aceite 2T fuera borda" data-fr="Huile 2T hors-bord">2T outboard oil</span></span>
+        </div>
+
+        <div class="footer-card">
+          <h3 data-en="Contact" data-es="Contacto" data-fr="Contact">Contact</h3>
+          <a class="footer-link" href="mailto:negocederim@gmail.com"><Icon name="mail" /><span>negocederim@gmail.com</span></a>
+          <a class="footer-link" href="tel:+34632527546"><Icon name="phone" /><span>+34 632 52 75 46</span></a>
+          <a class="footer-link" href="tel:+22247951096"><Icon name="phone" /><span>+222 47 95 10 96</span></a>
+        </div>
       </div>
 
-      <div>
-        <h3 data-en="Sectors" data-es="Sectores" data-fr="Secteurs">Sectors</h3>
-        <a class="footer-link" href="/fisheries/"><Icon name="fish" /><span data-en="Fisheries & maritime" data-es="Pesca y marítimo" data-fr="Pêche et maritime">Fisheries & maritime</span></a>
-        <a class="footer-link" href="/mining/"><Icon name="pickaxe" /><span data-en="Mining & resources" data-es="Minería y recursos" data-fr="Mines et ressources">Mining & resources</span></a>
-        <a class="footer-link" href="/deluxelube/"><Icon name="oil" /><span>DeluxeLube</span></a>
-        <a class="footer-link" href="https://deluxelube.com/product.php?id=36" target="_blank" rel="noopener"><Icon name="document" /><span data-en="Official product page" data-es="Ficha oficial" data-fr="Page officielle">Official product page</span></a>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> NÉGOCE ET COMMERCE DE RIM</span>
+        <span class="footer-location"><Icon name="map" /> Tevragh Zeina, Nouakchott</span>
       </div>
-
-      <div>
-        <h3 data-en="Contact" data-es="Contacto" data-fr="Contact">Contact</h3>
-        <a class="footer-link" href="mailto:negocederim@gmail.com"><Icon name="mail" /><span>negocederim@gmail.com</span></a>
-        <a class="footer-link" href="tel:+34632527546"><Icon name="phone" /><span>+34 632 52 75 46</span></a>
-        <a class="footer-link" href="tel:+22247951096"><Icon name="phone" /><span>+222 47 95 10 96</span></a>
-        <p class="footer-link"><Icon name="map" /><span>Tevragh Zeina, Nouakchott</span></p>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <span>© <span id="year"></span> NÉGOCE ET COMMERCE DE RIM</span>
-      <span data-en="Trade • Fisheries • Mining • Lubricants" data-es="Comercio • Pesca • Minería • Lubricantes" data-fr="Commerce • Pêche • Mines • Lubrifiants">Trade • Fisheries • Mining • Lubricants</span>
     </div>
   </div>
 </footer>
