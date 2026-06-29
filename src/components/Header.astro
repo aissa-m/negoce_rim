@@ -13,18 +13,46 @@ const nav = [
 ---
 <header class="header">
   <div class="container header-row">
-    <a href="/" aria-label="NÉGOCE ET COMMERCE DE RIM"><img class="logo" src="/original_logo.png" alt="NÉGOCE ET COMMERCE DE RIM" /></a>
+    <a class="brand" href="/" aria-label="NÉGOCE ET COMMERCE DE RIM">
+      <img class="logo" src="/original_logo.png" alt="NÉGOCE ET COMMERCE DE RIM" />
+      <span class="brand-text">NÉGOCE ET COMMERCE DE RIM</span>
+    </a>
+
     <nav class="nav" aria-label="Main navigation">
-      {nav.map(([key,href,en,es,fr]) => <a class={active===key?'active':''} href={href} data-en={en} data-es={es} data-fr={fr}>{en}</a>)}
+      {nav.map(([key,href,en,es,fr,icon]) => (
+        <a class={active===key?'active':''} href={href} data-en={en} data-es={es} data-fr={fr}>
+          <Icon name={icon} />
+          <span>{en}</span>
+        </a>
+      ))}
     </nav>
+
     <div class="actions">
-      <button class="chip" data-lang-button="en">EN</button><button class="chip" data-lang-button="es">ES</button><button class="chip" data-lang-button="fr">FR</button>
-      <button class="chip" data-theme-toggle aria-label="Toggle theme"><span data-theme-icon><Icon name="moon" /></span></button>
+      <button class="chip" data-lang-button="en">EN</button>
+      <button class="chip" data-lang-button="es">ES</button>
+      <button class="chip" data-lang-button="fr">FR</button>
+      <button class="chip theme-chip" data-theme-toggle aria-label="Toggle theme"><span data-theme-icon><Icon name="moon" /></span></button>
     </div>
+
     <button class="chip menu-btn" data-menu-toggle aria-label="Open menu"><Icon name="menu" /></button>
   </div>
-  <div class="container mobile-nav" data-mobile-menu>
-    {nav.map(([key,href,en,es,fr,icon]) => <a class={active===key?'active':''} href={href}><span class="icon-box"><Icon name={icon} /></span><span data-en={en} data-es={es} data-fr={fr}>{en}</span></a>)}
-    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="chip" data-lang-button="en">EN</button><button class="chip" data-lang-button="es">ES</button><button class="chip" data-lang-button="fr">FR</button><button class="chip" data-theme-toggle aria-label="Toggle theme"><span data-theme-icon><Icon name="moon" /></span></button></div>
+
+  <div class="mobile-panel" data-mobile-menu>
+    <div class="container mobile-inner">
+      <div class="mobile-actions">
+        <button class="chip" data-lang-button="en">EN</button>
+        <button class="chip" data-lang-button="es">ES</button>
+        <button class="chip" data-lang-button="fr">FR</button>
+        <button class="chip theme-chip" data-theme-toggle aria-label="Toggle theme"><span data-theme-icon><Icon name="moon" /></span></button>
+      </div>
+      <nav class="mobile-nav" aria-label="Mobile navigation">
+        {nav.map(([key,href,en,es,fr,icon]) => (
+          <a class={active===key?'active':''} href={href}>
+            <span class="icon-box"><Icon name={icon} /></span>
+            <span data-en={en} data-es={es} data-fr={fr}>{en}</span>
+          </a>
+        ))}
+      </nav>
+    </div>
   </div>
 </header>
