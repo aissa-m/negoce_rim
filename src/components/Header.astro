@@ -20,9 +20,9 @@ const nav = [
 
     <nav class="nav" aria-label="Main navigation">
       {nav.map(([key,href,en,es,fr,icon]) => (
-        <a class={active===key?'active':''} href={href} data-en={en} data-es={es} data-fr={fr}>
+        <a class={active===key?'active':''} href={href}>
           <Icon name={icon} />
-          <span>{en}</span>
+          <span data-en={en} data-es={es} data-fr={fr}>{en}</span>
         </a>
       ))}
     </nav>
