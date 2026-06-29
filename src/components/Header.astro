@@ -14,7 +14,7 @@ const nav = [
 <header class="header">
   <div class="container header-row">
     <a class="brand" href="/" aria-label="NÉGOCE ET COMMERCE DE RIM">
-      <img class="logo" src="/black_logo.svg" alt="NÉGOCE ET COMMERCE DE RIM" />
+      <img class="logo" data-logo src="/black_logo.svg" alt="NÉGOCE ET COMMERCE DE RIM" />
     </a>
 
     <nav class="nav" aria-label="Main navigation">
@@ -27,9 +27,13 @@ const nav = [
     </nav>
 
     <div class="actions">
-      <button class="chip" data-lang-button="en">EN</button>
-      <button class="chip" data-lang-button="es">ES</button>
-      <button class="chip" data-lang-button="fr">FR</button>
+      <label class="lang-select-wrap" aria-label="Language selector">
+        <select class="lang-select" data-lang-select>
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+          <option value="fr">FR</option>
+        </select>
+      </label>
       <button class="chip theme-chip" data-theme-toggle aria-label="Toggle theme"><span data-theme-icon><Icon name="moon" /></span></button>
     </div>
 
@@ -39,9 +43,13 @@ const nav = [
   <div class="mobile-panel" data-mobile-menu>
     <div class="container mobile-inner">
       <div class="mobile-actions">
-        <button class="chip" data-lang-button="en">EN</button>
-        <button class="chip" data-lang-button="es">ES</button>
-        <button class="chip" data-lang-button="fr">FR</button>
+        <label class="lang-select-wrap" aria-label="Language selector">
+          <select class="lang-select" data-lang-select>
+            <option value="en">EN</option>
+            <option value="es">ES</option>
+            <option value="fr">FR</option>
+          </select>
+        </label>
         <button class="chip theme-chip" data-theme-toggle aria-label="Toggle theme"><span data-theme-icon><Icon name="moon" /></span></button>
       </div>
       <nav class="mobile-nav" aria-label="Mobile navigation">
